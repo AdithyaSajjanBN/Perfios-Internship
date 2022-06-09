@@ -1,0 +1,12 @@
+<?xml version = "1.0"?>
+<college>
+	<student>
+		<name>abc</name>
+
+	</student>
+	<department>
+		<deptname>cse</deptname>
+	</department>
+</college>
+
+	

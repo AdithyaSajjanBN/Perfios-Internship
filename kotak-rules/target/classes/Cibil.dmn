@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_AF24F25C-B72B-4F28-919B-21EF727DA7A8" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_4AE2DA0B-A6B7-453D-9F81-AB825FF302E0" name="Cibil" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_AF24F25C-B72B-4F28-919B-21EF727DA7A8">
+  <dmn:extensionElements/>
+  <dmn:itemDefinition id="_9642BDFC-899A-4D26-B2B2-EE8BF4AC9784" name="ScoreDtl" isCollection="false">
+    <dmn:itemComponent id="_6CCFE8A5-7D30-40C9-9950-FA692D108707" name="score" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_8C6E978D-0312-4145-8774-334E603EFE9E" name="scoreDate" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_1EFC1EBE-D248-49A3-B6E1-1550975308E1" name="scoreCardVersion" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_C290B44E-2876-41E8-A58A-A200EA8C3B2B" name="scoreCardname" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_76AF60AE-45FE-419C-80B0-C976352C9368" name="AcctDtl" isCollection="true">
+    <dmn:itemComponent id="_0EAD0F39-D09E-4086-978F-C5F185E83145" name="paymentHistory1" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_A02A3240-FD22-41F0-B80F-8ACC333AE9AF" name="accountType" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:decision id="_A219804C-F213-4178-A1DF-4379B8A61194" name="CibilDecision">
+    <dmn:extensionElements/>
+    <dmn:variable id="_027836E2-F8B3-441E-AAC1-0CE34318A83C" name="CibilDecision"/>
+    <dmn:informationRequirement id="_94352382-FBEC-484B-BD26-931F8B4C40D5">
+      <dmn:requiredDecision href="#_AF0F1EDB-929D-4AF4-9AE7-04BAFB70E3BF"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="_B7474659-B360-40C9-AB17-74395734FCEE">
+      <dmn:requiredDecision href="#_8D204B68-0988-4C53-82D5-0C6F8F5A63A4"/>
+    </dmn:informationRequirement>
+  </dmn:decision>
+  <dmn:decision id="_8D204B68-0988-4C53-82D5-0C6F8F5A63A4" name="paymentHistory">
+    <dmn:extensionElements/>
+    <dmn:variable id="_DE93ADAA-01F7-4687-928D-8E87015F9D4B" name="paymentHistory" typeRef="boolean"/>
+    <dmn:informationRequirement id="_55C621E1-1670-4D91-8BBF-A07C68646F5A">
+      <dmn:requiredInput href="#_72B24820-16CB-4185-A3A9-0EBE1FB0786C"/>
+    </dmn:informationRequirement>
+    <dmn:knowledgeRequirement id="_26713E3F-797D-4B2F-BAF4-4E751AC132ED">
+      <dmn:requiredKnowledge href="#_2FD56322-E427-44B2-9AE5-64D76DE0E0B7"/>
+    </dmn:knowledgeRequirement>
+    <dmn:literalExpression id="_428795C3-DBBD-4069-A6BE-5E2CAF2F261F">
+      <dmn:text>every i in AcctDtl satisfies valid(i.paymentHistory1)=true</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:businessKnowledgeModel id="_2FD56322-E427-44B2-9AE5-64D76DE0E0B7" name="valid">
+    <dmn:extensionElements/>
+    <dmn:variable id="_7E2F777D-A6D8-4BD3-932E-0545E5821C2D" name="valid" typeRef="boolean"/>
+    <dmn:encapsulatedLogic id="_5649BF2F-0292-4B93-A0D7-825E81AEDED1" kind="FEEL">
+      <dmn:formalParameter id="_37AED123-5EA5-4EE8-9075-2057BCB9D3CA" name="paymentHistory1" typeRef="string"/>
+      <dmn:literalExpression id="_978175C5-4C11-4EFB-9F32-4E27EF5F6056">
+        <dmn:text>if(string length(paymentHistory1)&gt;0) then 
+
+(contains(substring(paymentHistory1,0,36),"SUB") = false) and (contains(substring(paymentHistory1,0,36),"LSS") = false) and (contains(substring(paymentHistory1,0,36),"SMA") = false) and (contains(substring(paymentHistory1,0,36),"DBT") = false)
+
+
+else 
+
+false</dmn:text>
+      </dmn:literalExpression>
+    </dmn:encapsulatedLogic>
+  </dmn:businessKnowledgeModel>
+  <dmn:inputData id="_060BC8AB-BF81-49F5-8D5B-0A2B9EC37772" name="ScoreDtl">
+    <dmn:extensionElements/>
+    <dmn:variable id="_B4289917-BBF7-4985-9D3F-60501A1C9680" name="ScoreDtl" typeRef="ScoreDtl"/>
+  </dmn:inputData>
+  <dmn:inputData id="_72B24820-16CB-4185-A3A9-0EBE1FB0786C" name="AcctDtl">
+    <dmn:extensionElements/>
+    <dmn:variable id="_0976942F-1962-4BBC-898B-56CC278AA863" name="AcctDtl" typeRef="AcctDtl"/>
+  </dmn:inputData>
+  <dmn:decision id="_AF0F1EDB-929D-4AF4-9AE7-04BAFB70E3BF" name="ScoreDecision">
+    <dmn:extensionElements/>
+    <dmn:variable id="_C3459570-79F1-479B-BBAB-9510FC0CC474" name="ScoreDecision" typeRef="boolean"/>
+    <dmn:informationRequirement id="_A9FA474D-31F2-48AD-8132-B315DC9526BA">
+      <dmn:requiredInput href="#_060BC8AB-BF81-49F5-8D5B-0A2B9EC37772"/>
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="_CB41FB6E-328D-4E87-8D3B-AA5230C82023" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+      <dmn:input id="_797A8934-C75D-428B-B7FF-11B4998D2FA9">
+        <dmn:inputExpression id="_AE9506A2-BC73-44B6-8051-1D8EECEF7012" typeRef="Any">
+          <dmn:text>ScoreDtl.score</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="_BBB853E8-2D2D-4BA2-B5D4-6BE2986D21EA"/>
+      <dmn:annotation name="annotation-1"/>
+      <dmn:rule id="_711ED139-4D17-41B2-AAB8-D6DA8EC5BD27">
+        <dmn:inputEntry id="_4E922B3C-A0BA-454E-878E-B5AC85911E32">
+          <dmn:text>&gt;625</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_44E9D8C4-6617-4A46-A7BD-CFADAD9F5228">
+          <dmn:text>true</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text/>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="_01F3A039-5BA2-4870-A92A-273BF9568191">
+        <dmn:inputEntry id="_C1353B35-E6AE-4EEE-8A8E-DA12B7D7F9EB">
+          <dmn:text>&lt;=625</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_FE46668A-B78E-4ADB-87F1-924237B2AE21">
+          <dmn:text>false</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text/>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_BC886178-7258-4E38-B6A2-DEA030B3CB4E" name="DRG">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_428795C3-DBBD-4069-A6BE-5E2CAF2F261F">
+            <kie:width>1090</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_978175C5-4C11-4EFB-9F32-4E27EF5F6056">
+            <kie:width>964</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_5649BF2F-0292-4B93-A0D7-825E81AEDED1">
+            <kie:width>50</kie:width>
+            <kie:width>964</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_CB41FB6E-328D-4E87-8D3B-AA5230C82023">
+            <kie:width>50</kie:width>
+            <kie:width>180</kie:width>
+            <kie:width>300</kie:width>
+            <kie:width>100</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-drg-_A219804C-F213-4178-A1DF-4379B8A61194" dmnElementRef="_A219804C-F213-4178-A1DF-4379B8A61194" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="801" y="281" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_8D204B68-0988-4C53-82D5-0C6F8F5A63A4" dmnElementRef="_8D204B68-0988-4C53-82D5-0C6F8F5A63A4" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="538" y="317" width="145" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_2FD56322-E427-44B2-9AE5-64D76DE0E0B7" dmnElementRef="_2FD56322-E427-44B2-9AE5-64D76DE0E0B7" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="560" y="419" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_060BC8AB-BF81-49F5-8D5B-0A2B9EC37772" dmnElementRef="_060BC8AB-BF81-49F5-8D5B-0A2B9EC37772" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="302" y="214" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_72B24820-16CB-4185-A3A9-0EBE1FB0786C" dmnElementRef="_72B24820-16CB-4185-A3A9-0EBE1FB0786C" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="307" y="316.3421052631579" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_AF0F1EDB-929D-4AF4-9AE7-04BAFB70E3BF" dmnElementRef="_AF0F1EDB-929D-4AF4-9AE7-04BAFB70E3BF" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="532" y="214" width="157" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-drg-_94352382-FBEC-484B-BD26-931F8B4C40D5" dmnElementRef="_94352382-FBEC-484B-BD26-931F8B4C40D5">
+        <di:waypoint x="689" y="239"/>
+        <di:waypoint x="801" y="306"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_B7474659-B360-40C9-AB17-74395734FCEE" dmnElementRef="_B7474659-B360-40C9-AB17-74395734FCEE">
+        <di:waypoint x="683" y="342"/>
+        <di:waypoint x="801" y="306"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_55C621E1-1670-4D91-8BBF-A07C68646F5A" dmnElementRef="_55C621E1-1670-4D91-8BBF-A07C68646F5A">
+        <di:waypoint x="357" y="341.3421052631579"/>
+        <di:waypoint x="538" y="342"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_26713E3F-797D-4B2F-BAF4-4E751AC132ED" dmnElementRef="_26713E3F-797D-4B2F-BAF4-4E751AC132ED">
+        <di:waypoint x="610" y="444"/>
+        <di:waypoint x="610.5" y="367"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_A9FA474D-31F2-48AD-8132-B315DC9526BA" dmnElementRef="_A9FA474D-31F2-48AD-8132-B315DC9526BA">
+        <di:waypoint x="352" y="239"/>
+        <di:waypoint x="532" y="239"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>
