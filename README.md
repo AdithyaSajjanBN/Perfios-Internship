@@ -13,6 +13,7 @@ Create a DMN :
   DMN elements :
   
   DMN models consist of the following five elements:
+  
     1) Decisions: Nodes in the model where one or several inputs determine an output based on decision logic.
     2) Input data: Information necessary to determine a decision. 
     3) Business knowledge models: Reusable pieces of decision logic. 
