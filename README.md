@@ -1,10 +1,10 @@
 # Automation of DMN Testing
 
-1) Create a DMN
+1) Create a DMN model
 2) Parse the file
 3) Autogenerate Test cases
 
-Create a DMN :
+Create a DMN model :
 
   DMN is a modeling language and notation for the precise specification of business decisions and business rules.
   In DMN, we use diagrams to notate the decision making process.
