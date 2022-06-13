@@ -22,4 +22,14 @@ Create a DMN :
 
   Create a file with .dmn extension in VSCode, the file with .dmn extension are automatically displayed as graphical models.
   
+  Evaluation of DMN model:
   
+  A KIE container is local when the knowledge assets are either embedded directly into the calling program, or are physically pulled in using Maven         dependencies for the KJAR.
+
+  Procedure:
+  
+  1) Add the required dependencies in pom.xml 
+  2) Create a KIE container from classpath
+  3) Obtain DMN Runtime from the kie container and a reference to the dmn model to be evaluated, by using model namespace and modelname
+  4) Execute the decision services for the desired model.
+
