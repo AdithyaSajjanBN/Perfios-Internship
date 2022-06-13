@@ -28,8 +28,16 @@ Create a DMN :
 
   Procedure:
   
-  1) Add the required dependencies in pom.xml 
-  2) Create a KIE container from classpath
-  3) Obtain DMN Runtime from the kie container and a reference to the dmn model to be evaluated, by using model namespace and modelname
-  4) Execute the decision services for the desired model.
+    1) Add the required dependencies in pom.xml 
+    2) Create a KIE container from classpath
+    3) Obtain DMN Runtime from the kie container and a reference to the dmn model to be evaluated, by using model namespace and modelname
+    4) Execute the decision services for the desired model.
+   
+Parse the DMN file :
+   
+   It is the process of reading an XML document and providing an interface to the user application for accessing the document.
+   The DMN Model that we have designed will be in XML format and we need to extract the necessary information using parsing.
+   There are two types of parsing methods,_ DOM Parser and SAX Parser and we are using SAX Parser for this implementation, as SAX is faster than DOM and      it is good for large documents because it takes comparitively less memory than Dom.
+   
+
 
