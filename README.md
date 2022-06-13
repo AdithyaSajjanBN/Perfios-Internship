@@ -19,3 +19,7 @@ Create a DMN :
     3) Business knowledge models: Reusable pieces of decision logic. 
     4) Knowledge sources: External regulations, documents, committees, policies, and so on that shape decision logic. 
     5) Decision service: A decision service is a top-level decision, with well-defined inputs, that is published as a service for invocation.
+
+  Create a file with .dmn extension in VSCode, the file with .dmn extension are automatically displayed as graphical models.
+  
+  
